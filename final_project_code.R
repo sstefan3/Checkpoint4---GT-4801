@@ -92,7 +92,10 @@ complete_cleanDeaths <- complete_cleanDeaths %>%
   mutate(Leading.Cause = str_replace(Leading.Cause, "Pregnancy, Childbirth and the Puerperium \\(O00-O09\\)", "Childbrith Complications")) %>%
   mutate(Leading.Cause = str_replace(Leading.Cause, "Septicemia \\(A40-A41\\)", "Septicemia")) %>%
   mutate(Leading.Cause = str_replace(Leading.Cause, "Tuberculosis \\(A16-A19\\)", "Tuberculosis")) %>%
-  mutate(Leading.Cause = str_replace(Leading.Cause, "Viral Hepatitis \\(B15-B19\\)", "Hepatitis"))
+  mutate(Leading.Cause = str_replace(Leading.Cause, "Viral Hepatitis \\(B15-B19\\)", "Hepatitis")) %>%
+  mutate(Race.Ethnicity = str_replace(Race.Ethnicity, "Non-Hispanic White", "White Non-Hispanic")) %>%
+  mutate(Race.Ethnicity = str_replace(Race.Ethnicity, "Non-Hispanic Black", "Black Non-Hispanic"))
+  
 
 #view cleaned data
 summary(complete_cleanDeaths)
@@ -165,16 +168,18 @@ model4 <- lm(formula = Death.Rate ~ Leading.Cause, data = complete_cleanDeaths)
 summary(model4)
 
 ##scatter plot with regression lines for model 2 
-plot(complete_cleanDeaths$Race.Ethnicity, complete_cleanDeaths$Deaths, main = "Race and Ethnicity and Deaths", xlim = c(0, 10),  
-     ylim = c(0, 1000), xlab = "Race and Ethnicity",  
+plot(complete_cleanDeaths$Race.Ethnicity, complete_cleanDeaths$Deaths, main = "Race and Ethnicity and Deaths", xlim = c(0, 5),  
+     ylim = c(0, 4000), xlab = "Race and Ethnicity",  
      ylab = "Deaths")  
 #plot for model 3
-plot(complete_cleanDeaths$Leading.Cause, complete_cleanDeaths$Deaths, main = "Leading Cause of Death and Deaths", xlim = c(0, 10),  
-     ylim = c(0, 1000), xlab = "Leading Cause",  
+plot(complete_cleanDeaths$Leading.Cause, complete_cleanDeaths$Deaths, main = "Leading Cause of Death and Deaths", xlim = c(0, 21),  
+     ylim = c(0, 4500), xlab = "Leading Cause",  
      ylab = "Deaths")  
 # plot for model 4
-plot(complete_cleanDeaths$Leading.Cause, complete_cleanDeaths$Death.Rate, main = "Leading Cause of Death and Death Rates", xlim = c(0, 10),  
-     ylim = c(0, 1000), xlab = "Leading Cause",  
+plot(complete_cleanDeaths$Leading.Cause, complete_cleanDeaths$Death.Rate, main = "Leading Cause of Death and Death Rates", xlim = c(0, 21),  
+     ylim = c(0, 450), xlab = "Leading Cause",  
      ylab = "Death Rate")  
+
+
 
 
